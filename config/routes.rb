@@ -2,7 +2,6 @@ Rails.application.routes.draw do
   resources :comments
   root 'static#home'
 
-  resources :images
   resources :users
   resources :users do
     resources :images 

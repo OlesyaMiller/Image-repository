@@ -1,0 +1,10 @@
+  
+<h1>Welcome to Olesya's Image Repository!</h1>
+
+<% if !logged_in? %>
+    <%= link_to "Sign Up", new_user_path %><br/>
+    <%= link_to "Sign In", signin_path %><br/>
+    <%= link_to('Log in with Facebook', '/auth/facebook') %>
+<% else %>
+    <h3>You are logged in as <%= current_user.username %></h3>    
+<% end %>  
