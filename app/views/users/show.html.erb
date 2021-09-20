@@ -10,10 +10,7 @@
   <%= @user.email %>
 </p>
 
-<p>
-  <strong>Password digest:</strong>
-  <%= @user.password_digest %>
-</p>
-
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to "See My Albums", user_albums_path(current_user) %><br/>
+<%= link_to "Create a New Album", new_user_album_path(current_user) %><br/>
+<%= link_to 'Editn Profile', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

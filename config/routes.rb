@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-  resources :albums
   root 'static#home'
 
+  resources :albums 
   resources :users do
-    resources :images 
+    resources :albums 
   end
 
   get '/signin', to: "session#signin"

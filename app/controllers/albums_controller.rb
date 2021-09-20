@@ -1,31 +1,37 @@
 class AlbumsController < ApplicationController
-  before_action :set_album, only: %i[ show edit update destroy ]
+  before_action :require_login
 
   # GET /albums or /albums.json
   def index
-    @albums = Album.all
+    @user = User.find(params[:user_id])
+    if @user 
+      @albums = @user.albums 
+    end
   end
 
   # GET /albums/1 or /albums/1.json
   def show
+    @album = Album.find_by(id: params[:id])
   end
 
   # GET /albums/new
   def new
     @album = Album.new
+    @album.user = current_user
   end
 
   # GET /albums/1/edit
   def edit
+    @album = Album.find_by(id: params[:id])
   end
 
   # POST /albums or /albums.json
   def create
-    @album = Album.new(album_params)
+    album = Album.new(album_params)
 
     respond_to do |format|
       if @album.save
-        format.html { redirect_to @album, notice: "Album was successfully created." }
+        format.html { redirect_to user_albums_path(album.user), notice: "Album was successfully created." }
         format.json { render :show, status: :created, location: @album }
       else
         format.html { render :new, status: :unprocessable_entity }
