@@ -27,11 +27,11 @@ class AlbumsController < ApplicationController
 
   # POST /albums or /albums.json
   def create
-    album = Album.new(album_params)
+    @album = Album.new(album_params)
 
     respond_to do |format|
-      if @album.save
-        format.html { redirect_to user_albums_path(album.user), notice: "Album was successfully created." }
+      if @album.save && @album.valid?
+        format.html { redirect_to user_albums_path(@album.user), notice: "Album was successfully created." }
         format.json { render :show, status: :created, location: @album }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -70,6 +70,6 @@ class AlbumsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def album_params
-      params.require(:album).permit(:title, :user_id, :images [])
+      params.require(:album).permit(:title, :user_id, images: [])
     end
 end

@@ -10,5 +10,15 @@
   <%= @album.user_id %>
 </p>
 
+<p>
+  <strong>Images:</strong>
+  <br>
+  <% if @album.images.attached? %>
+    <% @album.images.each do |image| %>
+      <%= image_tag image, width: "200px" %>
+    <% end %>
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_album_path(@album) %> |
 <%= link_to 'Back', albums_path %>
