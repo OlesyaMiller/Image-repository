@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :comments
+  resources :albums
   root 'static#home'
 
   resources :users do
