@@ -5,5 +5,7 @@
     <%= link_to "Sign Up", new_user_path %><br/>
     <%= link_to "Sign In", signin_path %><br/>
 <% else %>
-    <h3>You are logged in as <%= current_user.username %></h3>    
+    <h3>You are logged in as <%= current_user.username %></h3>  
+    <%= link_to "My Profile", user_path(current_user) %><br/>
+    <%= link_to "Log Out", logout_path %><br/>    
 <% end %>  

@@ -1,5 +1,4 @@
 class SessionController < ApplicationController
-    class SessionController < ApplicationController
 
         def new  
         end
@@ -19,5 +18,4 @@ class SessionController < ApplicationController
             redirect_to root_path
         end
     
-    end
 end
