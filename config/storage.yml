@@ -7,12 +7,12 @@ local:
   root: <%= Rails.root.join("storage") %>
 
 # Use rails credentials:edit to set the AWS secrets (as aws:access_key_id|secret_access_key)
-# amazon:
-#   service: S3
-#   access_key_id: <%= Rails.application.credentials.dig(:aws, :access_key_id) %>
-#   secret_access_key: <%= Rails.application.credentials.dig(:aws, :secret_access_key) %>
-#   region: us-east-1
-#   bucket: your_own_bucket
+amazon:
+  service: S3
+  access_key_id: AKIAWLIFBR3GOIXWDK3B
+  secret_access_key: RL71MKdxSPuRgCktaLgs9YrpcXyx3wfF6fy1p3r4
+  region: us-east-2
+  bucket: shopify-backend-challenge-olesya-miller
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:

@@ -4,13 +4,10 @@ class AlbumsController < ApplicationController
   # GET /albums or /albums.json
   def index
     @user = User.find(params[:user_id])
-    # respond_to do |format|
       if @user == current_user
         @albums = @user.albums 
       else
-        redirect_to root_path
-        # format.html { redirect_to root_path, notice: "You do not have access to other users' albums" }
-        # format.json { render json: @album.errors, status: :unprocessable_entity }    
+        redirect_to root_path    
       end
   end
 
@@ -35,7 +32,7 @@ class AlbumsController < ApplicationController
     @album = Album.new(album_params)
 
     respond_to do |format|
-      if @album.save && @album.valid?
+      if @album.save 
         format.html { redirect_to user_albums_path(@album.user), notice: "Album was successfully created." }
         format.json { render :show, status: :created, location: @album }
       else
@@ -50,7 +47,6 @@ class AlbumsController < ApplicationController
     @album = Album.find_by(id: params[:id])
     respond_to do |format|
       if @album.update(album_params)
-        # @album.images.attach(params[:images])
         format.html { redirect_to @album, notice: "Album was successfully updated." }
         format.json { render :show, status: :ok, location: @album }
       else
@@ -64,20 +60,25 @@ class AlbumsController < ApplicationController
   def destroy
     @album = set_album
     @album.images.purge 
-    # @album.uploads.purge 
-    @album.destroy 
-    redirect_to user_albums_path(current_user)
+    respond_to do |format|
+      if @album.destroy 
+        format.html { redirect_to user_albums_path(@album.user), notice: "Album was successfully deleted." }          
+        format.json { render :show, status: :created, location: @album }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @album.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
+  # Custom action for deleting single images
   def delete_image_attachment
-    # byebug 
     @image = ActiveStorage::Attachment.find(params[:id])
     @image.purge
     redirect_to user_albums_path(current_user)
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_album
       @album = Album.find(params[:id])
     end
