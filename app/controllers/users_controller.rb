@@ -33,6 +33,10 @@ class UsersController < ApplicationController
         end
     end
 
+    def delete_image 
+
+    end
+
     private
     
     def user_params

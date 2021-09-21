@@ -1,15 +1,17 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Username:</strong>
-  <%= @user.username %>
-</p>
+<% if logged_in? %>
+  <p>
+    <strong>Username:</strong>
+    <%= current_user.username %>
+  </p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+  <p>
+    <strong>Email:</strong>
+    <%= current_user.email %>
+  </p>
 
-<%= link_to "See My Albums", user_albums_path(current_user) %><br/>
-<%= link_to "Create a New Album", new_user_album_path(current_user) %><br/>
-<%= link_to 'Editn Profile', edit_user_path(current_user) %> 
+  <%= link_to "See My Albums", user_albums_path(current_user) %><br/>
+  <%= link_to "Create a New Album", new_user_album_path(current_user) %><br/>
+  <%= link_to 'Edit Profile', edit_user_path(current_user) %> 
+<% end %>  

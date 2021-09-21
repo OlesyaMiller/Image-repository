@@ -4,9 +4,14 @@ class AlbumsController < ApplicationController
   # GET /albums or /albums.json
   def index
     @user = User.find(params[:user_id])
-    if @user 
-      @albums = @user.albums 
-    end
+    # respond_to do |format|
+      if @user == current_user
+        @albums = @user.albums 
+      else
+        redirect_to root_path
+        # format.html { redirect_to root_path, notice: "You do not have access to other users' albums" }
+        # format.json { render json: @album.errors, status: :unprocessable_entity }    
+      end
   end
 
   # GET /albums/1 or /albums/1.json
@@ -57,11 +62,18 @@ class AlbumsController < ApplicationController
 
   # DELETE /albums/1 or /albums/1.json
   def destroy
-    @album.destroy
-    respond_to do |format|
-      format.html { redirect_to albums_url, notice: "Album was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    @album = set_album
+    @album.images.purge 
+    # @album.uploads.purge 
+    @album.destroy 
+    redirect_to user_albums_path(current_user)
+  end
+
+  def delete_image_attachment
+    # byebug 
+    @image = ActiveStorage::Attachment.find(params[:id])
+    @image.purge
+    redirect_to user_albums_path(current_user)
   end
 
   private
