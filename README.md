@@ -1,24 +1,9 @@
-# README
+Welcome to my Image Repository App!
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This application lets a user create albums and add images to them. Images can be added upon creation of an album or after the creation. The app lets user delete single images as well as whole albums with images in them (images get erased with the album). 
 
-Things you may want to cover:
+The app uses 2.6.1 ruby version and Rails 6.0.4.1
 
-* Ruby version
+To be able to run the app, first install all the dependencies, including the database, by running 'bundle install'.
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Next, start the server by running 'rails s' command. Once you have the server running, go to http://localhost:3000 and enjoy the app!
