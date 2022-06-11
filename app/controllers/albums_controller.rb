@@ -4,11 +4,11 @@ class AlbumsController < ApplicationController
   # GET /albums or /albums.json
   def index
     @user = User.find(params[:user_id])
-      if @user == current_user
-        @albums = @user.albums 
-      else
-        redirect_to root_path    
-      end
+    if @user == current_user
+      @albums = @user.albums 
+    else
+      redirect_to root_path    
+    end
   end
 
   # GET /albums/1 or /albums/1.json
