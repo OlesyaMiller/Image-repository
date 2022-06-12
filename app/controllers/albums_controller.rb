@@ -19,7 +19,10 @@ class AlbumsController < ApplicationController
   # GET /albums/new
   def new
     @album = Album.new
-    @album.user = current_user
+    @album.users << current_user
+    params[:user_ids] do |id|
+      @album.users << User.find_by(id: id)
+    end
   end
 
   # GET /albums/1/edit
@@ -32,6 +35,7 @@ class AlbumsController < ApplicationController
     @album = Album.new(album_params)
 
     respond_to do |format|
+      
       if @album.save 
         format.html { redirect_to user_albums_path(@album.user), notice: "Album was successfully created." }
         format.json { render :show, status: :created, location: @album }
@@ -85,6 +89,6 @@ class AlbumsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def album_params
-      params.require(:album).permit(:title, :user_id, images: [])
+      params.require(:album).permit(:title, :user_id, images: [], user_ids: [])
     end
 end
