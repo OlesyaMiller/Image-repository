@@ -13,31 +13,32 @@ class AlbumsController < ApplicationController
 
   # GET /albums/1 or /albums/1.json
   def show
-    @album = Album.find_by(id: params[:id])
+    set_album
   end
 
   # GET /albums/new
   def new
     @album = Album.new
-    @album.users << current_user
-    params[:user_ids] do |id|
-      @album.users << User.find_by(id: id)
-    end
   end
 
   # GET /albums/1/edit
   def edit
-    @album = Album.find_by(id: params[:id])
+    # @album = Album.find_by(id: params[:id])
+    set_album
   end
 
   # POST /albums or /albums.json
   def create
+    # @post = current_user.posts.new(post_params)
     @album = Album.new(album_params)
+    @album.users << current_user
+    params[:user_ids] do |id|
+      @album.users << User.find_by(id: id)
+    end
 
     respond_to do |format|
-      
       if @album.save 
-        format.html { redirect_to user_albums_path(@album.user), notice: "Album was successfully created." }
+        format.html { redirect_to user_albums_path(current_user), notice: "Album was successfully created." }
         format.json { render :show, status: :created, location: @album }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -48,7 +49,7 @@ class AlbumsController < ApplicationController
 
   # PATCH/PUT /albums/1 or /albums/1.json
   def update
-    @album = Album.find_by(id: params[:id])
+    set_album
     respond_to do |format|
       if @album.update(album_params)
         format.html { redirect_to @album, notice: "Album was successfully updated." }
@@ -89,6 +90,6 @@ class AlbumsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def album_params
-      params.require(:album).permit(:title, :user_id, images: [], user_ids: [])
+      params.require(:album).permit(:title, images: [], user_ids: [])
     end
 end
