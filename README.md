@@ -7,3 +7,5 @@ The app uses 2.6.1 ruby version and Rails 6.0.4.1
 To be able to run the app, first install all the dependencies, including the database, by running 'bundle install'.
 
 Next, start the server by running 'rails s' command. Once you have the server running, go to http://localhost:3000 and enjoy the app!
+
+IMPORTANT UPDATE! Now the application has a new album-sharing feature. Users can grant permisson to other users to add photos to their albums.
