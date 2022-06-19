@@ -23,13 +23,11 @@ class AlbumsController < ApplicationController
 
   # GET /albums/1/edit
   def edit
-    # @album = Album.find_by(id: params[:id])
     set_album
   end
 
   # POST /albums or /albums.json
   def create
-    # @post = current_user.posts.new(post_params)
     @album = Album.new(album_params)
     @album.users << current_user
     params[:user_ids] do |id|
@@ -52,6 +50,7 @@ class AlbumsController < ApplicationController
     set_album
     respond_to do |format|
       if @album.update(album_params)
+        @album.users << current_user
         format.html { redirect_to @album, notice: "Album was successfully updated." }
         format.json { render :show, status: :ok, location: @album }
       else
