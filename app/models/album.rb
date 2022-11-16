@@ -1,5 +1,6 @@
 class Album < ApplicationRecord
-    belongs_to :user
+    has_many :album_users
+    has_many :users, through: :album_users
 
     has_many_attached :images do |attachable|
         attachable.variant :thumb, resize: "100x100"

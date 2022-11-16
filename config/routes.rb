@@ -3,7 +3,7 @@ Rails.application.routes.draw do
 
   resources :albums 
   resources :users do
-    resources :albums 
+    resources :album_users, :albums 
   end
 
   resources :albums do
